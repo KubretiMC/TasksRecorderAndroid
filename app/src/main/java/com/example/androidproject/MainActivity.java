@@ -9,6 +9,7 @@ import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
     private Button ShowPendingButton;
+    private Button ShowPreviousbutton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +23,22 @@ public class MainActivity extends AppCompatActivity {
                 OpenShowPendingActivity();
             }
         });
+
+        ShowPreviousbutton = findViewById(R.id.ShowPrevious);
+        ShowPreviousbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OpenShowPreviousActivity();
+            }
+        });
     }
 
     public void OpenShowPendingActivity() {
+        Intent intent = new Intent(this, ShowPendingActivity.class);
+        startActivity(intent);
+    }
+
+    public void OpenShowPreviousActivity() {
         Intent intent = new Intent(this, ShowPendingActivity.class);
         startActivity(intent);
     }
