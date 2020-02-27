@@ -32,7 +32,6 @@ public class ShowAddActivity extends AppCompatActivity {
         addEndDate= findViewById(R.id.EndDatePlainText);
         addComfirmButton= findViewById(R.id.ComfirmButton);
 
-//
         addComfirmButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
