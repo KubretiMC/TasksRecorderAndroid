@@ -4,7 +4,7 @@
     <TableLayout android:layout_height="match_parent" android:layout_width="match_parent">
         <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
             <TextView android:layout_height="wrap_content" android:layout_width="match_parent" android:text="@string/task_name" android:id="@+id/UsernameTextView"/>
-            <EditText android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/TaskNamePlainText" android:inputType="textShortMessage" android:ems="10"/>
+            <EditText android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/TaskNamePlainText" android:inputType="text" android:ems="10"/>
         </TableRow>
 
         <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
