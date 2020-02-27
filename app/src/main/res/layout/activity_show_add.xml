@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <LinearLayout android:orientation="vertical" android:layout_height="match_parent" android:layout_width="match_parent" xmlns:android="http://schemas.android.com/apk/res/android">
-
+    <TableLayout android:layout_height="match_parent" android:layout_width="match_parent">
         <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
             <TextView android:layout_height="wrap_content" android:layout_width="match_parent" android:text="@string/task_name" android:id="@+id/UsernameTextView"/>
             <EditText android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/TaskNamePlainText" android:inputType="textShortMessage" android:ems="10"/>
@@ -15,5 +15,5 @@
         <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
             <Button android:layout_height="match_parent" android:layout_width="103dp" android:text="@string/comfirm" android:id="@+id/ComfirmButton"/>
         </TableRow>
-
+    </TableLayout>
 </LinearLayout>
