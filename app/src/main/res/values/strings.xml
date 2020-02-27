@@ -9,4 +9,7 @@
     <string name="showeditactivityplaceholder">ShowEditActivityPlaceholder</string>
     <string name="showdeleteactivityplaceholder">ShowDeleteActivityPlaceholder</string>
     <string name="showaddactivityplaceholder">ShowAddActivityPlaceholder</string>
+    <string name="task_name">Task Name:</string>
+    <string name="end_date">End date:</string>
+    <string name="comfirm">Comfirm</string>
 </resources>
