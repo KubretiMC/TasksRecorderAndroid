@@ -32,7 +32,7 @@ public class ShowAddActivity extends AppCompatActivity {
         addEndDate= findViewById(R.id.EndDatePlainText);
         addComfirmButton= findViewById(R.id.ComfirmButton);
 
-
+//
         addComfirmButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
@@ -81,7 +81,10 @@ public class ShowAddActivity extends AppCompatActivity {
                             .build();
                     notify.flags |= Notification.FLAG_AUTO_CANCEL;
                 } catch (Exception e) {
-                    addComfirmButton.setText("Errpr: " + e.getLocalizedMessage());
+                    Notification notify = new Notification.Builder(getApplicationContext())
+                            .setContentTitle("Error while working with database!")
+                            .build();
+                    notify.flags |= Notification.FLAG_AUTO_CANCEL;
                 }
             }
         });
