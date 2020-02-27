@@ -10,6 +10,10 @@ import android.widget.Button;
 public class MainActivity extends AppCompatActivity {
     private Button ShowPendingButton;
     private Button ShowPreviousbutton;
+    private Button ShowAddButton;
+    private Button ShowDeleteButton;
+    private Button ShowEditButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +35,47 @@ public class MainActivity extends AppCompatActivity {
                 OpenShowPreviousActivity();
             }
         });
+
+        ShowAddButton = findViewById(R.id.ShowAdd);
+        ShowAddButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                OpenShowAddActivity();
+            }
+        });
+
+        ShowDeleteButton=findViewById(R.id.ShowDelete);
+        ShowDeleteButton.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+                OpenShowDeleteActivity();
+            }
+        });
+
+        ShowEditButton=findViewById(R.id.ShowEdit);
+        ShowEditButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OpenShowEditActivity();
+            }
+        });
+    }
+
+    public void OpenShowEditActivity() {
+        Intent intent = new Intent(this, ShowEditActivity.class);
+        startActivity(intent);
+    }
+
+    public void OpenShowDeleteActivity() {
+        Intent intent = new Intent(this, ShowDeleteActivity.class);
+        startActivity(intent);
+    }
+
+    public void OpenShowAddActivity() {
+        Intent intent = new Intent(this, ShowAddActivity.class);
+        startActivity(intent);
     }
 
     public void OpenShowPendingActivity() {
@@ -39,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void OpenShowPreviousActivity() {
-        Intent intent = new Intent(this, ShowPendingActivity.class);
+        Intent intent = new Intent(this, ShowPreviousActivity.class);
         startActivity(intent);
     }
 }
