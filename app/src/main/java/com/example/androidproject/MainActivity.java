@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
     private Button ShowAddButton;
     private Button ShowDeleteButton;
     private Button ShowEditButton;
+    private Button ShowButtonButton;
 
 
     @Override
@@ -61,6 +62,8 @@ public class MainActivity extends AppCompatActivity {
                 OpenShowEditActivity();
             }
         });
+
+        ShowButtonButton=findViewById(R.id.button4);
     }
 
     public void OpenShowEditActivity() {

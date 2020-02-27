@@ -12,4 +12,5 @@
     <string name="task_name">Task Name:</string>
     <string name="end_date">End date:</string>
     <string name="comfirm">Comfirm</string>
+    <string name="button">Button</string>
 </resources>
