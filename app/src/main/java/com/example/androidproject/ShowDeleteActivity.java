@@ -6,7 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -15,21 +17,28 @@ import java.util.ArrayList;
 public class ShowDeleteActivity extends AppCompatActivity {
 
 
-    public TextView res;
-
+    protected TextView res;
+    protected Button deleteTaskButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_delete);
+        ShowPendingTasks();
+
+        deleteTaskButton = findViewById(R.id.DeleteTaskButton);
+
+
+    }
+
+    protected void ShowPendingTasks() {
         res = findViewById(R.id.result);
         final ListView simpleList = findViewById(R.id.simpleListView);
-
         String q, resultText;
         ArrayList<String> listResults = new ArrayList<>();
         try {
             SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "zadachiOpit2.db", null);
-            q = "SELECT * FROM zadachiopit2";
+            q = "SELECT * FROM zadachiopit2 WHERE finishedDate is null";
             Cursor c = db.rawQuery(q, null);
             resultText = "Задача\t Краен Срок\n";
             while (c.moveToNext()) {
@@ -56,3 +65,4 @@ public class ShowDeleteActivity extends AppCompatActivity {
         }
     }
 }
+

@@ -13,4 +13,5 @@
     <string name="end_date">End date:</string>
     <string name="comfirm">Comfirm</string>
     <string name="button">Button</string>
+    <string name="delete_task">delete_task</string>
 </resources>

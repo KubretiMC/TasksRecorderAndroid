@@ -91,7 +91,7 @@ public class ShowAddActivity extends AppCompatActivity {
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    boolean isValidDate(String inDate) {
+    protected boolean isValidDate(String inDate) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         dateFormat.setLenient(false);
         try {

@@ -15,4 +15,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:layout_height="300dp"
+        android:layout_width="match_parent"
+        android:id="@+id/simpleListView"
+        android:dividerHeight="1dp"
+        android:divider="@color/colorPrimaryDark"
+        android:choiceMode="singleChoice"
+        android:listSelector="#666666"
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>
