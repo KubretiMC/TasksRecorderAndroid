@@ -38,8 +38,8 @@ public class ShowAddActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //on click za Insert
                 try {
-                    SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "zadachiOpit1.db", null);
-                    String q = "CREATE TABLE if not exists zadachiopit1(";
+                    SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "zadachiOpit2.db", null);
+                    String q = "CREATE TABLE if not exists zadachiopit2(";
                     q += "ID integer primary key AUTOINCREMENT, ";
                     q += "taskName text not null, ";
                     q += "endDate datetime not null, ";
@@ -63,7 +63,7 @@ public class ShowAddActivity extends AppCompatActivity {
                                 .build();
                         notify.flags |= Notification.FLAG_AUTO_CANCEL;
                     } else {
-                        q = "INSERT INTO zadachiOpit1(taskName, endDate, finishedDate) VALUES(?, ?, ?);";
+                        q = "INSERT INTO zadachiOpit2(taskName, endDate, finishedDate) VALUES(?, ?, ?);";
                         db.execSQL(q, new Object[]{taskName, endDate, null});
                         db.close();
                         Toast.makeText(getApplicationContext(), "Task added successful!", Toast.LENGTH_LONG).show();
@@ -92,7 +92,7 @@ public class ShowAddActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     boolean isValidDate(String inDate) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-dd-MM HH:mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         dateFormat.setLenient(false);
         try {
             dateFormat.parse(inDate.trim());
