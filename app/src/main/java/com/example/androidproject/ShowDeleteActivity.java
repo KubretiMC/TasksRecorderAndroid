@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -46,6 +47,21 @@ public class ShowDeleteActivity extends AppCompatActivity {
             }
         });
 
+        simpleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String rawString=listResults.get(position);
+                Toast.makeText(ShowDeleteActivity.this,"you clicked on: " + rawString, Toast.LENGTH_SHORT).show();
+
+
+
+            }
+        });
+
+
+
+
+
     }
 
     protected void ShowPendingTasks(ArrayList<String> listResults, ArrayAdapter<String> arrayAdapter,ListView simpleList) {
@@ -59,10 +75,11 @@ public class ShowDeleteActivity extends AppCompatActivity {
             Cursor c = db.rawQuery(q, null);
             resultText = "Задача\t Краен Срок\n";
             while (c.moveToNext()) {
+                Integer id = c.getInt(c.getColumnIndex("ID"));
                 String taskName = c.getString(c.getColumnIndex("taskName"));
                 String endDate = c.getString(c.getColumnIndex("endDate"));
                 resultText += taskName + " \t " + endDate + "\n";
-                listResults.add(taskName + " \t " + endDate);
+                listResults.add(id + " \t" + taskName + " \t " + endDate);
             }
 
             db.close();
