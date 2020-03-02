@@ -17,6 +17,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class ShowAddActivity extends AppCompatActivity {
+    //TODO Трябва да видим какви символи може да направят проблем и да ги забраним, например вмомента ако във наме се въеведе същото нещото като дате ще направим проблеми
+    //TODO после като работи със стринговете в delete, достатъчно е да се забрани ":" например. Също да направим полето за add да си пише тиретата и : само.
 
     protected EditText addTaskName;
     protected EditText addEndDate;

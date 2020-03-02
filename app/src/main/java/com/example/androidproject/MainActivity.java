@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ShowButtonButton=findViewById(R.id.button4);
+
     }
 
     public void OpenShowEditActivity() {
