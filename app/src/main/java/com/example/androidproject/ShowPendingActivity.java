@@ -33,10 +33,11 @@ public class ShowPendingActivity extends AppCompatActivity {
             Cursor c = db.rawQuery(q, null);
             resultText = "Задача\t Краен Срок\n";
             while (c.moveToNext()) {
+                Integer id = c.getInt(c.getColumnIndex("ID"));
                 String taskName = c.getString(c.getColumnIndex("taskName"));
                 String endDate = c.getString(c.getColumnIndex("endDate"));
                 resultText += taskName + " \t " + endDate + "\n";
-                listResults.add(taskName + " \t " + endDate);
+                listResults.add(id + " \t" + taskName + " \t " + endDate);
             }
 
             db.close();
