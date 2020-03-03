@@ -28,10 +28,10 @@ import java.util.regex.Pattern;
 public class ShowDeleteActivity extends AppCompatActivity {
 
 
-    protected TextView res;
-    protected Button deleteTaskButton;
-    String dateString;
-    String nameString;
+    private TextView res;
+    private Button deleteTaskButton;
+    private String dateString;
+    private String nameString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +49,7 @@ public class ShowDeleteActivity extends AppCompatActivity {
         final ListView simpleList = findViewById(R.id.simpleListView);
 
         ShowPendingTasks(listResults, arrayAdapter,simpleList);
+
         deleteTaskButton = findViewById(R.id.DeleteTaskButton);
         deleteTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,12 +63,8 @@ public class ShowDeleteActivity extends AppCompatActivity {
             }
         });
 
-
-
-
         String pattern = "([0-9]{4}-{1}[0-9]{2}-[0-9]{2} {1}[0-9]{2}:{1}[0-9]{2}$)";
         final Pattern r=Pattern.compile(pattern);
-
 
         simpleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -77,27 +74,16 @@ public class ShowDeleteActivity extends AppCompatActivity {
                 Matcher m= r.matcher(rawString);
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                 dateFormat.setLenient(false);
-
-
                 if(m.find()){
-                    dateString=new String(m.group(1));
-                    nameString=new String(rawString.replaceAll(dateString, "").trim());
-
-
-                    Toast.makeText(ShowDeleteActivity.this,"you clicked on: " + dateString, Toast.LENGTH_SHORT).show();
-
+                    dateString=m.group(1);
+                    nameString=rawString.replaceAll(dateString, "").trim();
+                    Toast.makeText(ShowDeleteActivity.this,"you clicked on: " + nameString+" "+dateString, Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
-
-
-
-
-
     }
 
-    protected void ShowPendingTasks(ArrayList<String> listResults, ArrayAdapter<String> arrayAdapter,ListView simpleList) {
+    private void ShowPendingTasks(ArrayList<String> listResults, ArrayAdapter<String> arrayAdapter,ListView simpleList) {
         res = findViewById(R.id.result);
 
         String q, resultText;
@@ -113,7 +99,7 @@ public class ShowDeleteActivity extends AppCompatActivity {
                 resultText += taskName + " \t " + endDate + "\n";
                 listResults.add(taskName + " \t " + endDate);
             }
-
+            c.close();
             db.close();
 
 
@@ -127,13 +113,11 @@ public class ShowDeleteActivity extends AppCompatActivity {
     }
 
 
-    protected void DeleteTask(String name,String date) {
+    private void DeleteTask(String name,String date) {
         res = findViewById(R.id.result);
 
-        Toast.makeText(ShowDeleteActivity.this,"you clicked on: " + new String[]{name}, Toast.LENGTH_SHORT).show();
-
         SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "zadachiOpit2.db", null);
-        db.delete("zadachiOpit2", "taskName=?", new String[]{name});
+        db.delete("zadachiOpit2", "taskName=? and endDate=?", new String[]{name, date});
         db.close();
     }
 }

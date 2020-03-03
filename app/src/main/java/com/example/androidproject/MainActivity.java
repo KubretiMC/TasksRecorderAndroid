@@ -67,27 +67,27 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void OpenShowEditActivity() {
+    private void OpenShowEditActivity() {
         Intent intent = new Intent(this, ShowEditActivity.class);
         startActivity(intent);
     }
 
-    public void OpenShowDeleteActivity() {
+    private void OpenShowDeleteActivity() {
         Intent intent = new Intent(this, ShowDeleteActivity.class);
         startActivity(intent);
     }
 
-    public void OpenShowAddActivity() {
+    private void OpenShowAddActivity() {
         Intent intent = new Intent(this, ShowAddActivity.class);
         startActivity(intent);
     }
 
-    public void OpenShowPendingActivity() {
+    private void OpenShowPendingActivity() {
         Intent intent = new Intent(this, ShowPendingActivity.class);
         startActivity(intent);
     }
 
-    public void OpenShowPreviousActivity() {
+    private void OpenShowPreviousActivity() {
         Intent intent = new Intent(this, ShowPreviousActivity.class);
         startActivity(intent);
     }

@@ -20,9 +20,9 @@ public class ShowAddActivity extends AppCompatActivity {
     //TODO Трябва да видим какви символи може да направят проблем и да ги забраним, например вмомента ако във наме се въеведе същото нещото като дате ще направим проблеми
     //TODO после като работи със стринговете в delete, достатъчно е да се забрани ":" например. Също да направим полето за add да си пише тиретата и : само.
 
-    protected EditText addTaskName;
-    protected EditText addEndDate;
-    protected Button addComfirmButton;
+    private EditText addTaskName;
+    private EditText addEndDate;
+    private Button addComfirmButton;
 
 
     @Override
@@ -93,7 +93,7 @@ public class ShowAddActivity extends AppCompatActivity {
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    protected boolean isValidDate(String inDate) {
+    private boolean isValidDate(String inDate) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         dateFormat.setLenient(false);
         try {
@@ -101,8 +101,6 @@ public class ShowAddActivity extends AppCompatActivity {
         } catch (ParseException | java.text.ParseException pe) {
             return false;
         }
-
-
         return true;
     }
 }

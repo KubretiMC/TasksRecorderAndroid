@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class ShowPreviousActivity extends AppCompatActivity {
 
-    protected TextView res;
+    private TextView res;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +22,7 @@ public class ShowPreviousActivity extends AppCompatActivity {
         ShowPreviousTasks();
     }
 
-    protected void ShowPreviousTasks() {
+    private void ShowPreviousTasks() {
         res = findViewById(R.id.result);
         final ListView simpleList = findViewById(R.id.simpleListView);
         String q, resultText;
@@ -38,7 +38,7 @@ public class ShowPreviousActivity extends AppCompatActivity {
                 resultText += taskName + " \t " + endDate + "\n";
                 listResults.add(taskName + " \t " + endDate);
             }
-
+            c.close();
             db.close();
 
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(

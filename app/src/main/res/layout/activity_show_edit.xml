@@ -1,18 +1,65 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="UTF-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ShowEditActivity">
+    android:orientation="vertical"
+    tools:context=".ShowDeleteActivity">
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/showeditactivityplaceholder"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_height="100dp"
+        android:layout_width="368dp"
+        android:id="@+id/result"/>
+
+    <ListView
+        android:layout_height="240dp"
+        android:layout_width="match_parent"
+        android:id="@+id/simpleListView"
+        android:dividerHeight="1dp"
+        android:divider="@color/colorPrimaryDark"
+        android:choiceMode="singleChoice"
+        android:listSelector="#666666"/>
+    <TableLayout android:layout_height="match_parent" android:layout_width="match_parent">
+    <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="@string/task_name"
+            android:id="@+id/TaskNameTextView"/>
+        <EditText
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/TaskNamePlainText"
+            android:inputType="text"
+            android:ems="10"/>
+    </TableRow>
+
+    <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
+        <TextView
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="@string/end_date"
+            android:id="@+id/TaskDateTextView"/>
+        <EditText
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:id="@+id/TaskDatePlainText"
+            android:inputType="datetime"
+            android:ems="10"/>
+    </TableRow>
+
+    <TableRow android:layout_height="match_parent" android:layout_width="match_parent">
+        <Button
+            android:id="@+id/EditTaskButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_task"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ShowPending" />
+    </TableRow>
+    </TableLayout>
+</LinearLayout>

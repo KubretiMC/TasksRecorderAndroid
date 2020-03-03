@@ -22,7 +22,7 @@ public class ShowPendingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_show_pending);
         ShowPendingTasks();
     }
-    protected void ShowPendingTasks() {
+    private void ShowPendingTasks() {
         res = findViewById(R.id.result);
         final ListView simpleList = findViewById(R.id.simpleListView);
         String q, resultText;
@@ -39,7 +39,7 @@ public class ShowPendingActivity extends AppCompatActivity {
                 resultText += taskName + " \t " + endDate + "\n";
                 listResults.add(id + " \t" + taskName + " \t " + endDate);
             }
-
+            c.close();
             db.close();
 
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
@@ -49,13 +49,8 @@ public class ShowPendingActivity extends AppCompatActivity {
                     listResults
             );
             simpleList.setAdapter(arrayAdapter);
-
-
         } catch (SQLiteException e) {
             res.setText("Грешка при работа с БД: " + e.getLocalizedMessage() + e.getStackTrace());
-
         }
     }
-
-
 }
