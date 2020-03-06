@@ -63,7 +63,7 @@ public class ShowDeleteActivity extends AppCompatActivity {
             }
         });
 
-        String pattern = "([0-9]{4}-{1}[0-9]{2}-[0-9]{2} {1}[0-9]{2}:{1}[0-9]{2}$)";
+        String pattern = "([0-9]{4}-{1}[0-9]{2}-{1}[0-9]{2}$)";
         final Pattern r=Pattern.compile(pattern);
 
         simpleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -72,7 +72,7 @@ public class ShowDeleteActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String rawString=listResults.get(position);
                 Matcher m= r.matcher(rawString);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                 dateFormat.setLenient(false);
                 if(m.find()){
                     dateString=m.group(1);
@@ -90,7 +90,7 @@ public class ShowDeleteActivity extends AppCompatActivity {
 
         try {
             SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "zadachiOpit2.db", null);
-            q = "SELECT * FROM zadachiopit2 WHERE finishedDate is null";
+            q = "SELECT * FROM zadachiopit2";
             Cursor c = db.rawQuery(q, null);
             resultText = "Задача\t Краен Срок\n";
             while (c.moveToNext()) {

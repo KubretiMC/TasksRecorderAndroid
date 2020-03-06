@@ -47,8 +47,11 @@ public class ShowAddActivity extends AppCompatActivity {
                     q += "endDate datetime not null, ";
                     q += "finishedDate dateTime);";
                     db.execSQL(q);
-                    String taskName = addTaskName.getText().toString();
+                    String taskName = addTaskName.getText().toString().trim();
                     String endDate = addEndDate.getText().toString();
+                    String finishedDate = "2020-01-02";
+
+
 
                     if (taskName.isEmpty() || endDate.isEmpty()) {
                         Toast.makeText(getApplicationContext(), "Empty field", Toast.LENGTH_LONG).show();
@@ -66,7 +69,7 @@ public class ShowAddActivity extends AppCompatActivity {
                         notify.flags |= Notification.FLAG_AUTO_CANCEL;
                     } else {
                         q = "INSERT INTO zadachiOpit2(taskName, endDate, finishedDate) VALUES(?, ?, ?);";
-                        db.execSQL(q, new Object[]{taskName, endDate, null});
+                        db.execSQL(q, new Object[]{taskName, endDate, finishedDate});
                         db.close();
                         Toast.makeText(getApplicationContext(), "Task added successful!", Toast.LENGTH_LONG).show();
                         Notification notify = new Notification.Builder(getApplicationContext())
@@ -94,7 +97,7 @@ public class ShowAddActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private boolean isValidDate(String inDate) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
         try {
             dateFormat.parse(inDate.trim());
