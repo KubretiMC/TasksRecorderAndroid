@@ -32,6 +32,8 @@ public class ShowAddActivity extends AppCompatActivity {
 
         addTaskName=  findViewById(R.id.TaskNamePlainText);
         addEndDate= findViewById(R.id.EndDatePlainText);
+
+
         addComfirmButton= findViewById(R.id.ComfirmButton);
 
         addComfirmButton.setOnClickListener(new View.OnClickListener() {
@@ -44,12 +46,12 @@ public class ShowAddActivity extends AppCompatActivity {
                     String q = "CREATE TABLE if not exists zadachiopit2(";
                     q += "ID integer primary key AUTOINCREMENT, ";
                     q += "taskName text not null, ";
-                    q += "endDate datetime not null, ";
-                    q += "finishedDate dateTime);";
+                    q += "endDate date not null, ";
+                    q += "finishedDate date);";
                     db.execSQL(q);
                     String taskName = addTaskName.getText().toString().trim();
                     String endDate = addEndDate.getText().toString();
-                    String finishedDate = "2020-01-02";
+
 
 
 
@@ -68,8 +70,8 @@ public class ShowAddActivity extends AppCompatActivity {
                                 .build();
                         notify.flags |= Notification.FLAG_AUTO_CANCEL;
                     } else {
-                        q = "INSERT INTO zadachiOpit2(taskName, endDate, finishedDate) VALUES(?, ?, ?);";
-                        db.execSQL(q, new Object[]{taskName, endDate, finishedDate});
+                        q = "INSERT INTO zadachiOpit2(taskName, endDate) VALUES(?, ?);";
+                        db.execSQL(q, new Object[]{taskName, endDate});
                         db.close();
                         Toast.makeText(getApplicationContext(), "Task added successful!", Toast.LENGTH_LONG).show();
                         Notification notify = new Notification.Builder(getApplicationContext())

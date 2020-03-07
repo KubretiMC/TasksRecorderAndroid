@@ -24,9 +24,9 @@ public class ShowPreviousActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_previous);
-
+        ShowAllPreviousTasks();
         CalendarView calender;
-        calender = (CalendarView)findViewById(R.id.calendarView);
+        calender = findViewById(R.id.calendarView);
         final String[] currentSelectedDate = new String[1];
         currentSelectedDate[0] =new String("2020-01-01");
         calender.setOnDateChangeListener(new CalendarView.OnDateChangeListener(){
@@ -40,7 +40,7 @@ public class ShowPreviousActivity extends AppCompatActivity {
 
             }
         });
-        ShowPreviousTasks(currentSelectedDate[0]);
+        //ShowPreviousTasks(currentSelectedDate[0]);
 
 
 
@@ -61,6 +61,41 @@ public class ShowPreviousActivity extends AppCompatActivity {
                 String finishedDate = c.getString(c.getColumnIndex("finishedDate"));
                 resultText += taskName + " \t " + finishedDate + "\n";
                 listResults.add(taskName + " \t " +finishedDate);
+            }
+            c.close();
+            db.close();
+
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                    getApplicationContext(),
+                    R.layout.activity_list_view,
+                    R.id.textView,
+                    listResults
+            );
+            simpleList.setAdapter(arrayAdapter);
+
+
+        } catch (SQLiteException e) {
+            res.setText("Грешка при работа с БД: " + e.getLocalizedMessage() + e.getStackTrace());
+
+        }
+    }
+
+    private void ShowAllPreviousTasks() {
+        res = findViewById(R.id.result);
+        final ListView simpleList = findViewById(R.id.simpleListView);
+        String q, resultText;
+        ArrayList<String> listResults = new ArrayList<>();
+        try {
+            SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "zadachiOpit2.db", null);
+            q = "SELECT * FROM zadachiopit2 WHERE finishedDate is not null order by date(endDate)";
+            Cursor c = db.rawQuery(q, null);
+            resultText = "Задача\t Краен Срок\n";
+            while (c.moveToNext()) {
+                String taskName = c.getString(c.getColumnIndex("taskName"));
+                String finishedDate = c.getString(c.getColumnIndex("finishedDate"));
+                String endDate = c.getString(c.getColumnIndex("endDate"));
+                resultText += taskName + " \t " + finishedDate + "\t"+endDate+"\n";
+                listResults.add(taskName + " \t " +finishedDate+"\t "+endDate);
             }
             c.close();
             db.close();

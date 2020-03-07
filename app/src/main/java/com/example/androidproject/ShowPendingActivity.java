@@ -3,7 +3,8 @@ package com.example.androidproject;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
+import android.app.Notification;
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -13,89 +14,61 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class ShowPendingActivity extends AppCompatActivity {
 
     private TextView res;
-    private CheckBox check;
-    private Button deleteTaskButton;
-    private String dateString;
-    private String nameString;
-
+    private ListView simpleList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_delete);
-
-
-        final ArrayList<String> listResults = new ArrayList<>();
-        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.activity_list_view_checkbox, R.id.textView, listResults);
-        final ListView simpleList = findViewById(R.id.simpleListView);
-
-
-        ShowPendingTasks(listResults, arrayAdapter,simpleList);
-
-
-
-
-        deleteTaskButton = findViewById(R.id.DeleteTaskButton);
-        deleteTaskButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(dateString!=null && nameString!=null ){
-                    DeleteTask(nameString, dateString);
-                    Intent intent= getIntent();
-                    finish();
-                    startActivity(intent);
-                }
-            }
-        });
-
-        String pattern = "([0-9]{4}-{1}[0-9]{2}-[0-9]{2} {1}[0-9]{2}:{1}[0-9]{2}$)";
-        final Pattern r=Pattern.compile(pattern);
+        setContentView(R.layout.activity_show_pending);
+        ShowPendingTasks();
 
         simpleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
             @RequiresApi(api = Build.VERSION_CODES.N)
+            @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String rawString=listResults.get(position);
+                String item = (String) parent.getItemAtPosition(position);
 
-                Matcher m= r.matcher(rawString);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                dateFormat.setLenient(false);
-                if(m.find()){
-                    dateString=m.group(1);
-                    nameString=rawString.replaceAll(dateString, "").trim();
-                    Toast.makeText(ShowPendingActivity.this,"you clicked on: " + nameString+" "+dateString, Toast.LENGTH_SHORT).show();
-                }
+                String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
 
+                res = findViewById(R.id.result);
 
+                String[] parts = item.split(" ");
+
+                String taskName = parts[0];
+                String taskDate = parts[parts.length-1];
+
+                String dadada=parts[1];
+
+                SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "zadachiOpit2.db", null);
+
+                ContentValues cv = new ContentValues();
+                cv.put("finishedDate",date);
+                db.update("zadachiOpit2", cv, "taskName=? and endDate=?", new String[]{taskName, taskDate});
+                db.close();
+
+                ShowPendingTasks();
+                Toast.makeText(ShowPendingActivity.this,"You finished task:"+taskName+" on date:"+taskDate, Toast.LENGTH_SHORT).show();
 
             }
         });
-
-
-
-
-
-
-
     }
 
-    private void ShowPendingTasks(ArrayList<String> listResults, ArrayAdapter<String> arrayAdapter,ListView simpleList) {
+    private void ShowPendingTasks() {
         res = findViewById(R.id.result);
-
+        simpleList= findViewById(R.id.simpleListView);
         String q, resultText;
-
+        ArrayList<String> listResults = new ArrayList<>();
         try {
             SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "zadachiOpit2.db", null);
             q = "SELECT * FROM zadachiopit2 WHERE finishedDate is null";
@@ -110,22 +83,19 @@ public class ShowPendingActivity extends AppCompatActivity {
             c.close();
             db.close();
 
+            ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(
+                    ShowPendingActivity.this,
+                    android.R.layout.simple_list_item_single_choice,
+                    listResults
+            );
+
 
             simpleList.setAdapter(arrayAdapter);
-
+            simpleList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
 
         } catch (SQLiteException e) {
             res.setText("Грешка при работа с БД: " + e.getLocalizedMessage() + e.getStackTrace());
-
         }
-    }
 
-
-    private void DeleteTask(String name,String date) {
-        res = findViewById(R.id.result);
-
-        SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "zadachiOpit2.db", null);
-        db.delete("zadachiOpit2", "taskName=? and endDate=?", new String[]{name, date});
-        db.close();
     }
 }
