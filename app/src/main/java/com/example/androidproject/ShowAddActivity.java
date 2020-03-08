@@ -16,6 +16,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.Date;
+
 public class ShowAddActivity extends AppCompatActivity {
     //TODO Трябва да видим какви символи може да направят проблем и да ги забраним, например вмомента ако във наме се въеведе същото нещото като дате ще направим проблеми
     //TODO после като работи със стринговете в delete, достатъчно е да се забрани ":" например. Също да направим полето за add да си пише тиретата и : само.
@@ -69,7 +71,15 @@ public class ShowAddActivity extends AppCompatActivity {
                                 .setContentText(taskName)
                                 .build();
                         notify.flags |= Notification.FLAG_AUTO_CANCEL;
-                    } else {
+                    } else if(!isDateLegit(endDate))
+                    {
+                        Toast.makeText(getApplicationContext(), "Date out of range!", Toast.LENGTH_LONG).show();
+                        Notification notify = new Notification.Builder(getApplicationContext())
+                                .setContentTitle("Date out of range!")
+                                .build();
+                        notify.flags |= Notification.FLAG_AUTO_CANCEL;
+                    }
+                    else {
                         q = "INSERT INTO zadachiOpit2(taskName, endDate) VALUES(?, ?);";
                         db.execSQL(q, new Object[]{taskName, endDate});
                         db.close();
@@ -101,9 +111,31 @@ public class ShowAddActivity extends AppCompatActivity {
     private boolean isValidDate(String inDate) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         dateFormat.setLenient(false);
+        Date currentDate = new Date();
+        Date date1;
         try {
-            dateFormat.parse(inDate.trim());
+            date1 = dateFormat.parse(inDate.trim());
         } catch (ParseException | java.text.ParseException pe) {
+            return false;
+        }
+        return true;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private boolean isDateLegit(String inDate) throws java.text.ParseException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        dateFormat.setLenient(false);
+        Date currentDate = new Date();
+        Date inputDate;
+        inputDate = dateFormat.parse(inDate.trim());
+
+        Date lastDate = dateFormat.parse("2099-12-31");
+
+        if (inputDate.compareTo(currentDate)<0) {
+            return false;
+        }
+        else if(inputDate.compareTo(lastDate)>0)
+        {
             return false;
         }
         return true;
