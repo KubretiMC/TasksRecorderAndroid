@@ -39,7 +39,7 @@ public class ShowPendingActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String item = (String) parent.getItemAtPosition(position);
 
-                String date = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()).format(new Date());
+                String date = new SimpleDateFormat("yyyy-M-d", Locale.getDefault()).format(new Date());
 
                 res = findViewById(R.id.result);
 

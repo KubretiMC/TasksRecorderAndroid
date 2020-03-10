@@ -80,8 +80,13 @@ public class ShowAddActivity extends AppCompatActivity {
                         notify.flags |= Notification.FLAG_AUTO_CANCEL;
                     }
                     else {
+                        String[] arrOfStr = endDate.split("-", 0);
+                        String strPattern = "^0+";
+                        String endDate2=arrOfStr[0]+"-"+arrOfStr[1].replaceAll(strPattern,"")+"-"+arrOfStr[2].replaceAll(strPattern,"");
+
+
                         q = "INSERT INTO zadachiOpit2(taskName, endDate) VALUES(?, ?);";
-                        db.execSQL(q, new Object[]{taskName, endDate});
+                        db.execSQL(q, new Object[]{taskName, endDate2});
                         db.close();
                         Toast.makeText(getApplicationContext(), "Task added successful!", Toast.LENGTH_LONG).show();
                         Notification notify = new Notification.Builder(getApplicationContext())
@@ -109,7 +114,7 @@ public class ShowAddActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private boolean isValidDate(String inDate) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-M-d");
         dateFormat.setLenient(false);
         Date currentDate = new Date();
         Date date1;
@@ -123,15 +128,24 @@ public class ShowAddActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private boolean isDateLegit(String inDate) throws java.text.ParseException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-M-d");
         dateFormat.setLenient(false);
-        Date currentDate = new Date();
+
+        Date today = new Date();
+        Date todayWithZeroTime = dateFormat.parse(dateFormat.format(today));
+
+
+
+
         Date inputDate;
         inputDate = dateFormat.parse(inDate.trim());
 
         Date lastDate = dateFormat.parse("2099-12-31");
-
-        if (inputDate.compareTo(currentDate)<0) {
+        if(inputDate.compareTo(todayWithZeroTime)==0)
+        {
+            return true;
+        }
+        if (inputDate.compareTo(todayWithZeroTime)<0) {
             return false;
         }
         else if(inputDate.compareTo(lastDate)>0)

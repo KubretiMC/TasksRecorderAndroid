@@ -93,9 +93,8 @@ public class ShowPreviousActivity extends AppCompatActivity {
             while (c.moveToNext()) {
                 String taskName = c.getString(c.getColumnIndex("taskName"));
                 String finishedDate = c.getString(c.getColumnIndex("finishedDate"));
-                String endDate = c.getString(c.getColumnIndex("endDate"));
-                resultText += taskName + " \t " + finishedDate + "\t"+endDate+"\n";
-                listResults.add(taskName + " \t " +finishedDate+"\t "+endDate);
+                resultText += taskName + " \t " + finishedDate + "\n";
+                listResults.add(taskName + " \t " +finishedDate);
             }
             c.close();
             db.close();

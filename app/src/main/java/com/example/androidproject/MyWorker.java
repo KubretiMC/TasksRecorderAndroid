@@ -31,10 +31,10 @@ public class MyWorker extends Worker {
     @Override
     public Result doWork() {
         Date currentTime = Calendar.getInstance().getTime();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-M-d");
         String formattedDate=dateFormat.format(currentTime);
         int counter=0;
-        ArrayList data=getFinishDates();
+        ArrayList data=getEndDate();
         for(int i=0;i<data.size();i++){
             if(formattedDate.equals(data.get(i))){
                 counter++;
@@ -73,18 +73,18 @@ public class MyWorker extends Worker {
         notificationManager.notify(1, notification.build());
     }
 
-    private ArrayList<String> getFinishDates() {
+    private ArrayList<String> getEndDate() {
 
         ArrayList<String> data=new ArrayList<String>();
         String q;
 
         try {
             SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getApplicationContext().getFilesDir().getPath() + "/" + "zadachiOpit2.db", null);
-            q = "SELECT * FROM zadachiopit2";
+            q = "SELECT * FROM zadachiopit2 where finishedDate is null";
             Cursor c = db.rawQuery(q, null);
             while (c.moveToNext()) {
-                String finishedDate = c.getString(c.getColumnIndex("finishedDate"));
-                data.add(finishedDate);
+                String endDate = c.getString(c.getColumnIndex("endDate"));
+                data.add(endDate);
 
             }
             c.close();

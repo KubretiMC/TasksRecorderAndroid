@@ -72,7 +72,7 @@ public class ShowEditActivity extends AppCompatActivity {
             }
         });
 
-        String pattern = "([0-9]{4}-{1}[0-9]{2}-{1}[0-9]{2}$)";
+        String pattern = "([0-9]{4}-{1}[0-9]{1,2}-{1}[0-9]{1,2}$)";
         final Pattern r=Pattern.compile(pattern);
 
         simpleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -81,7 +81,7 @@ public class ShowEditActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String rawString=listResults.get(position);
                 Matcher m= r.matcher(rawString);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-M-d");
                 dateFormat.setLenient(false);
 
                 if(m.find()){
@@ -104,7 +104,7 @@ public class ShowEditActivity extends AppCompatActivity {
 
         try {
             SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "zadachiOpit2.db", null);
-            q = "SELECT * FROM zadachiopit2";
+            q = "SELECT * FROM zadachiopit2 where finishedDate is null";
             Cursor c = db.rawQuery(q, null);
             resultText = "Задача\t Краен Срок\n";
             while (c.moveToNext()) {
@@ -136,6 +136,8 @@ public class ShowEditActivity extends AppCompatActivity {
         cv.put("taskName",newTaskName.getText().toString());
         cv.put("endDate", newTaskDate.getText().toString());
         db.update("zadachiOpit2", cv, "taskName=? and endDate=?", new String[]{name, date});
+        Toast.makeText(ShowEditActivity.this,"Task updated successfully! " + nameString+" "+dateString, Toast.LENGTH_SHORT).show();
+
         db.close();
     }
 }
