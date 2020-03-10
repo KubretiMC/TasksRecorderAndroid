@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 
+
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
@@ -20,6 +21,10 @@ android {
 }
 
 dependencies {
+    def work_version = "2.3.3"
+
+
+    implementation "androidx.work:work-runtime:$work_version"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'

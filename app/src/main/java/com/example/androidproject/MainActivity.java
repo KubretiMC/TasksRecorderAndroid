@@ -1,11 +1,26 @@
 package com.example.androidproject;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.work.Constraints;
+import androidx.work.ExistingPeriodicWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     private Button ShowPendingButton;
@@ -14,6 +29,10 @@ public class MainActivity extends AppCompatActivity {
     private Button ShowDeleteButton;
     private Button ShowEditButton;
     private Button ShowButtonButton;
+    public static final String TAG_MY_WORK = "mywork";
+
+
+
 
 
     @Override
@@ -64,7 +83,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        startAlarm();
+    }
 
+
+
+
+
+    private void startAlarm(){
+
+        PeriodicWorkRequest work = new PeriodicWorkRequest.Builder(MyWorker.class, 15, TimeUnit.MINUTES)
+                .setConstraints(Constraints.NONE)
+                .build();
+        WorkManager.getInstance(getApplicationContext()).enqueueUniquePeriodicWork(TAG_MY_WORK, ExistingPeriodicWorkPolicy.REPLACE, work );
     }
 
     private void OpenShowEditActivity() {
