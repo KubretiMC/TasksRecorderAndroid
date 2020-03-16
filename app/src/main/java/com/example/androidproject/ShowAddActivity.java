@@ -42,6 +42,9 @@ public class ShowAddActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
+                dateChecker dateCheck = new dateChecker();
+
+
                 //on click za Insert
                 try {
                     SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "zadachiOpit2.db", null);
@@ -64,14 +67,14 @@ public class ShowAddActivity extends AppCompatActivity {
                                 .setContentText(taskName)
                                 .build();
                         notify.flags |= Notification.FLAG_AUTO_CANCEL;
-                    } else if (!isValidDate(endDate)) {
+                    } else if (!dateCheck.isValidDate(endDate)) {
                         Toast.makeText(getApplicationContext(), "Wrong date format!", Toast.LENGTH_LONG).show();
                         Notification notify = new Notification.Builder(getApplicationContext())
                                 .setContentTitle("Wrong date format!")
                                 .setContentText(taskName)
                                 .build();
                         notify.flags |= Notification.FLAG_AUTO_CANCEL;
-                    } else if(!isDateLegit(endDate))
+                    } else if(!dateCheck.isDateLegit(endDate))
                     {
                         Toast.makeText(getApplicationContext(), "Date out of range!", Toast.LENGTH_LONG).show();
                         Notification notify = new Notification.Builder(getApplicationContext())
@@ -109,49 +112,5 @@ public class ShowAddActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private boolean isValidDate(String inDate) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-M-d");
-        dateFormat.setLenient(false);
-        Date currentDate = new Date();
-        Date date1;
-        try {
-            date1 = dateFormat.parse(inDate.trim());
-        } catch (ParseException | java.text.ParseException pe) {
-            return false;
-        }
-        return true;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    private boolean isDateLegit(String inDate) throws java.text.ParseException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-M-d");
-        dateFormat.setLenient(false);
-
-        Date today = new Date();
-        Date todayWithZeroTime = dateFormat.parse(dateFormat.format(today));
-
-
-
-
-        Date inputDate;
-        inputDate = dateFormat.parse(inDate.trim());
-
-        Date lastDate = dateFormat.parse("2099-12-31");
-        if(inputDate.compareTo(todayWithZeroTime)==0)
-        {
-            return true;
-        }
-        if (inputDate.compareTo(todayWithZeroTime)<0) {
-            return false;
-        }
-        else if(inputDate.compareTo(lastDate)>0)
-        {
-            return false;
-        }
-        return true;
     }
 }

@@ -128,6 +128,9 @@ public class ShowEditActivity extends AppCompatActivity {
 
 
     private void EditTask(String name,String date) {
+        dateChecker datecheck = new dateChecker();
+
+
         res = findViewById(R.id.result);
 
         SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "zadachiOpit2.db", null);
