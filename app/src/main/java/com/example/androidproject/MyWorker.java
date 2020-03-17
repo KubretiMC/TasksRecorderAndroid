@@ -50,9 +50,6 @@ public class MyWorker extends Worker {
             Log.d("noMatch", "no match");
         }
 
-
-
-
         return Result.success();
     }
 
@@ -89,14 +86,9 @@ public class MyWorker extends Worker {
             }
             c.close();
             db.close();
-
         } catch (SQLiteException e) {
 
         }
-
         return data;
     }
-
-
-
 }

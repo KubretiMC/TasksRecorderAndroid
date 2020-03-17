@@ -3,17 +3,16 @@ package com.example.androidproject;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Notification;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.icu.text.SimpleDateFormat;
-import android.net.ParseException;
+
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
+
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -26,8 +25,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ShowDeleteActivity extends AppCompatActivity {
-
-
     private TextView res;
     private Button deleteTaskButton;
     private String dateString;
@@ -37,7 +34,6 @@ public class ShowDeleteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_delete);
-
 
         final ArrayList<String> listResults = new ArrayList<>();
         final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
@@ -86,29 +82,23 @@ public class ShowDeleteActivity extends AppCompatActivity {
     private void ShowPendingTasks(ArrayList<String> listResults, ArrayAdapter<String> arrayAdapter,ListView simpleList) {
         res = findViewById(R.id.result);
 
-        String q, resultText;
+        String q;
 
         try {
             SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "zadachiOpit2.db", null);
             q = "SELECT * FROM zadachiopit2 where finishedDate is null";
             Cursor c = db.rawQuery(q, null);
-            resultText = "Задача\t Краен Срок\n";
             while (c.moveToNext()) {
                 String taskName = c.getString(c.getColumnIndex("taskName"));
                 String endDate = c.getString(c.getColumnIndex("endDate"));
-                resultText += taskName + " \t " + endDate + "\n";
                 listResults.add(taskName + " \t " + endDate);
             }
             c.close();
             db.close();
 
-
             simpleList.setAdapter(arrayAdapter);
-
-
         } catch (SQLiteException e) {
             res.setText("Грешка при работа с БД: " + e.getLocalizedMessage() + e.getStackTrace());
-
         }
     }
 

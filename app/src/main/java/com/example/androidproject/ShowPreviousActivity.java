@@ -3,7 +3,6 @@ package com.example.androidproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -15,7 +14,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class ShowPreviousActivity extends AppCompatActivity {
 
@@ -40,10 +38,6 @@ public class ShowPreviousActivity extends AppCompatActivity {
 
             }
         });
-        //ShowPreviousTasks(currentSelectedDate[0]);
-
-
-
     }
 
     private void ShowPreviousTasks(String fDate) {
@@ -72,8 +66,6 @@ public class ShowPreviousActivity extends AppCompatActivity {
                     listResults
             );
             simpleList.setAdapter(arrayAdapter);
-
-
         } catch (SQLiteException e) {
             res.setText("Грешка при работа с БД: " + e.getLocalizedMessage() + e.getStackTrace());
 
@@ -83,17 +75,15 @@ public class ShowPreviousActivity extends AppCompatActivity {
     private void ShowAllPreviousTasks() {
         res = findViewById(R.id.result);
         final ListView simpleList = findViewById(R.id.simpleListView);
-        String q, resultText;
+        String q;
         ArrayList<String> listResults = new ArrayList<>();
         try {
             SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "zadachiOpit2.db", null);
             q = "SELECT * FROM zadachiopit2 WHERE finishedDate is not null order by date(endDate)";
             Cursor c = db.rawQuery(q, null);
-            resultText = "Задача\t Краен Срок\n";
             while (c.moveToNext()) {
                 String taskName = c.getString(c.getColumnIndex("taskName"));
                 String finishedDate = c.getString(c.getColumnIndex("finishedDate"));
-                resultText += taskName + " \t " + finishedDate + "\n";
                 listResults.add(taskName + " \t " +finishedDate);
             }
             c.close();
@@ -110,7 +100,6 @@ public class ShowPreviousActivity extends AppCompatActivity {
 
         } catch (SQLiteException e) {
             res.setText("Грешка при работа с БД: " + e.getLocalizedMessage() + e.getStackTrace());
-
         }
     }
 }

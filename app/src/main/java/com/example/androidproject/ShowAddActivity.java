@@ -3,20 +3,15 @@ package com.example.androidproject;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.TargetApi;
 import android.app.Notification;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
-import android.icu.text.SimpleDateFormat;
-import android.net.ParseException;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import java.util.Date;
 
 public class ShowAddActivity extends AppCompatActivity {
     //TODO Трябва да видим какви символи може да направят проблем и да ги забраним, например вмомента ако във наме се въеведе същото нещото като дате ще направим проблеми
@@ -26,7 +21,6 @@ public class ShowAddActivity extends AppCompatActivity {
     private EditText addEndDate;
     private Button addComfirmButton;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,18 +28,12 @@ public class ShowAddActivity extends AppCompatActivity {
 
         addTaskName=  findViewById(R.id.TaskNamePlainText);
         addEndDate= findViewById(R.id.EndDatePlainText);
-
-
         addComfirmButton= findViewById(R.id.ComfirmButton);
-
         addComfirmButton.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
                 dateChecker dateCheck = new dateChecker();
-
-
-                //on click za Insert
                 try {
                     SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "zadachiOpit2.db", null);
                     String q = "CREATE TABLE if not exists zadachiopit2(";
@@ -56,9 +44,6 @@ public class ShowAddActivity extends AppCompatActivity {
                     db.execSQL(q);
                     String taskName = addTaskName.getText().toString().trim();
                     String endDate = addEndDate.getText().toString();
-
-
-
 
                     if (taskName.isEmpty() || endDate.isEmpty()) {
                         Toast.makeText(getApplicationContext(), "Empty field", Toast.LENGTH_LONG).show();
@@ -87,7 +72,6 @@ public class ShowAddActivity extends AppCompatActivity {
                         String strPattern = "^0+";
                         String endDate2=arrOfStr[0]+"-"+arrOfStr[1].replaceAll(strPattern,"")+"-"+arrOfStr[2].replaceAll(strPattern,"");
 
-
                         q = "INSERT INTO zadachiOpit2(taskName, endDate) VALUES(?, ?);";
                         db.execSQL(q, new Object[]{taskName, endDate2});
                         db.close();
@@ -99,7 +83,6 @@ public class ShowAddActivity extends AppCompatActivity {
                         notify.flags |= Notification.FLAG_AUTO_CANCEL;
                     }
                 } catch (SQLiteException e) {
-
                     Notification notify = new Notification.Builder(getApplicationContext())
                             .setContentTitle("Error while working with database!")
                             .build();
