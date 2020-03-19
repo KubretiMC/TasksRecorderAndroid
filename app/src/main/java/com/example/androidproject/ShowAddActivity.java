@@ -30,7 +30,7 @@ public class ShowAddActivity extends AppCompatActivity {
         addEndDate= findViewById(R.id.EndDatePlainText);
         addComfirmButton= findViewById(R.id.ComfirmButton);
         addComfirmButton.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 dateChecker dateCheck = new dateChecker();
@@ -59,13 +59,13 @@ public class ShowAddActivity extends AppCompatActivity {
                                 .setContentText(taskName)
                                 .build();
                         notify.flags |= Notification.FLAG_AUTO_CANCEL;
-                    } else if(!dateCheck.isDateLegit(endDate))
-                    {
-                        Toast.makeText(getApplicationContext(), "Date out of range!", Toast.LENGTH_LONG).show();
-                        Notification notify = new Notification.Builder(getApplicationContext())
-                                .setContentTitle("Date out of range!")
-                                .build();
-                        notify.flags |= Notification.FLAG_AUTO_CANCEL;
+                    //} else if(!dateCheck.isDateLegit(endDate))
+                    //{
+                      //  Toast.makeText(getApplicationContext(), "Date out of range!", Toast.LENGTH_LONG).show();
+                       // Notification notify = new Notification.Builder(getApplicationContext())
+                         //       .setContentTitle("Date out of range!")
+                           //     .build();
+                        //notify.flags |= Notification.FLAG_AUTO_CANCEL;
                     }
                     else {
                         String[] arrOfStr = endDate.split("-", 0);

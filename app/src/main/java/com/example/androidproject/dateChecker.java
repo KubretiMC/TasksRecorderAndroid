@@ -10,7 +10,7 @@ import java.util.Date;
 
 public class dateChecker {
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean isValidDate(String inDate) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-M-d");
         dateFormat.setLenient(false);
@@ -24,7 +24,7 @@ public class dateChecker {
         return true;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public boolean isDateLegit(String inDate) throws java.text.ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-M-d");
         dateFormat.setLenient(false);
@@ -43,11 +43,7 @@ public class dateChecker {
         {
             return true;
         }
-        if (inputDate.compareTo(todayWithZeroTime)<0) {
-            return false;
-        }
-        else if(inputDate.compareTo(lastDate)>0)
-        {
+        if (inputDate.compareTo(todayWithZeroTime)<0 || inputDate.compareTo(lastDate)>0) {
             return false;
         }
         return true;

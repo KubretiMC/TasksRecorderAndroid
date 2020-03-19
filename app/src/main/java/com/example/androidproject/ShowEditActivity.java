@@ -58,7 +58,7 @@ public class ShowEditActivity extends AppCompatActivity {
 
         editTaskButton = findViewById(R.id.EditTaskButton);
         editTaskButton.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.N)
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public void onClick(View v) {
                 if (dateString != null && nameString != null) {
@@ -76,7 +76,7 @@ public class ShowEditActivity extends AppCompatActivity {
 
         simpleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            @RequiresApi(api = Build.VERSION_CODES.N)
+            @RequiresApi(api = Build.VERSION_CODES.O)
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String rawString = listResults.get(position);
                 Matcher m = r.matcher(rawString);
@@ -119,7 +119,7 @@ public class ShowEditActivity extends AppCompatActivity {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.N)
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private void EditTask(String name, String date) throws ParseException {
         String newDate = newTaskDate.getText().toString();
         String newName = newTaskName.getText().toString();

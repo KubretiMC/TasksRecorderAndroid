@@ -16,4 +16,5 @@
     <string name="delete_task">delete_task</string>
     <string name="edit_task">edit_task</string>
     <string name="hello">hello</string>
+    <string name="show_expired_tasks">Show Expired Tasks</string>
 </resources>

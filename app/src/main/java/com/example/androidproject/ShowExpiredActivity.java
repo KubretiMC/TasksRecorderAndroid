@@ -24,7 +24,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class ShowPendingActivity extends AppCompatActivity {
+public class ShowExpiredActivity extends AppCompatActivity {
 
     private TextView res;
     private ListView simpleList;
@@ -32,46 +32,21 @@ public class ShowPendingActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_pending);
-        ShowPendingTasks();
-
-        simpleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.O)
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String item = (String) parent.getItemAtPosition(position);
-                String date = new SimpleDateFormat("yyyy-M-d", Locale.getDefault()).format(new Date());
-
-                res = findViewById(R.id.result);
-
-                String[] parts = item.split(" ");
-
-                String taskName = parts[0];
-                String taskDate = parts[parts.length-1];
-
-                SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "zadachiOpit2.db", null);
-
-                ContentValues cv = new ContentValues();
-                cv.put("finishedDate",date);
-                db.update("zadachiOpit2", cv, "taskName=? and endDate=?", new String[]{taskName, taskDate});
-                db.close();
-
-                ShowPendingTasks();
-                Toast.makeText(ShowPendingActivity.this,"You finished task:"+taskName+" on date:"+taskDate, Toast.LENGTH_SHORT).show();
-            }
-        });
+        setContentView(R.layout.activity_show_expired);
+        ShowExpiredTasks();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void ShowPendingTasks() {
+    private void ShowExpiredTasks() {
         res = findViewById(R.id.result);
         simpleList= findViewById(R.id.simpleListView);
         String q;
         LocalDate today = LocalDate.now();
+
         ArrayList<String> listResults = new ArrayList<>();
         try {
             SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "zadachiOpit2.db", null);
-            q = "SELECT * FROM zadachiopit2 WHERE finishedDate is null and endDate>?";
+            q = "SELECT * FROM zadachiopit2 WHERE finishedDate is null and endDate<?";
             Cursor c = db.rawQuery(q, new String[]{String.valueOf(today)});
             while (c.moveToNext()) {
                 String taskName = c.getString(c.getColumnIndex("taskName"));
@@ -81,14 +56,15 @@ public class ShowPendingActivity extends AppCompatActivity {
             c.close();
             db.close();
 
+
             ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                    ShowPendingActivity.this,
-                    android.R.layout.simple_list_item_single_choice,
+                    getApplicationContext(),
+                    R.layout.activity_list_view,
+                    R.id.textView,
                     listResults
             );
 
             simpleList.setAdapter(arrayAdapter);
-            simpleList.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         } catch (SQLiteException e) {
             res.setText("Грешка при работа с БД: " + e.getLocalizedMessage() + e.getStackTrace());
         }

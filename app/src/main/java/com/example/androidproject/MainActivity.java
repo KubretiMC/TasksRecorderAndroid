@@ -1,25 +1,37 @@
 package com.example.androidproject;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.work.Constraints;
 import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
+import android.icu.text.SimpleDateFormat;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     private Button ShowPendingButton;
-    private Button ShowPreviousbutton;
+    private Button ShowPreviousButton;
     private Button ShowAddButton;
     private Button ShowDeleteButton;
     private Button ShowEditButton;
+    private Button ShowExpiredButton;
+
 
     public static final String TAG_MY_WORK = "mywork";
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,11 +45,19 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        ShowPreviousbutton = findViewById(R.id.ShowPrevious);
-        ShowPreviousbutton.setOnClickListener(new View.OnClickListener() {
+        ShowPreviousButton = findViewById(R.id.ShowPrevious);
+        ShowPreviousButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 OpenShowPreviousActivity();
+            }
+        });
+
+        ShowExpiredButton = findViewById(R.id.ShowExpired);
+        ShowExpiredButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OpenShowExpiredActivity();
             }
         });
 
@@ -65,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
                 OpenShowEditActivity();
             }
         });
+        //DeleteExpiredTasks();
         startAlarm();
     }
 
@@ -99,5 +120,18 @@ public class MainActivity extends AppCompatActivity {
     private void OpenShowPreviousActivity() {
         Intent intent = new Intent(this, ShowPreviousActivity.class);
         startActivity(intent);
+    }
+
+    private void OpenShowExpiredActivity() {
+        Intent intent = new Intent(this, ShowExpiredActivity.class);
+        startActivity(intent);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void DeleteExpiredTasks() {
+        LocalDate today = LocalDate.now();
+        SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "zadachiOpit2.db", null);
+            db.delete("zadachiOpit2", "endDate<?", new String[]{String.valueOf(today)});
+            db.close();
     }
 }

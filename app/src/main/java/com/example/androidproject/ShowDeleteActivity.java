@@ -64,7 +64,7 @@ public class ShowDeleteActivity extends AppCompatActivity {
 
         simpleList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            @RequiresApi(api = Build.VERSION_CODES.N)
+            @RequiresApi(api = Build.VERSION_CODES.O)
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String rawString=listResults.get(position);
                 Matcher m= r.matcher(rawString);

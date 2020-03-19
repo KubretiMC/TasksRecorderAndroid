@@ -9,11 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ShowEditActivity"></activity>
+        <activity android:name=".ShowEditActivity" />
         <activity android:name=".ShowDeleteActivity" />
         <activity android:name=".ShowAddActivity" />
         <activity android:name=".ShowPendingActivity" />
         <activity android:name=".ShowPreviousActivity" />
+        <activity android:name=".ShowExpiredActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
