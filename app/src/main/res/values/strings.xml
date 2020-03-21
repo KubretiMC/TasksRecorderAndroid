@@ -3,9 +3,6 @@
     <string name="showpreviousactivityplaceholder">ShowPreviousActivityPlaceholder</string>
     <string name="show_pending_tasks">Show Pending Tasks</string>
     <string name="show_previous_tasks">Show Previous Tasks</string>
-    <string name="add">Add</string>
-    <string name="delete">Delete</string>
-    <string name="edit">Edit</string>
     <string name="showeditactivityplaceholder">ShowEditActivityPlaceholder</string>
     <string name="showdeleteactivityplaceholder">ShowDeleteActivityPlaceholder</string>
     <string name="showaddactivityplaceholder">ShowAddActivityPlaceholder</string>
@@ -13,8 +10,10 @@
     <string name="end_date">End date:</string>
     <string name="comfirm">Comfirm</string>
     <string name="button">Button</string>
-    <string name="delete_task">delete_task</string>
-    <string name="edit_task">edit_task</string>
+    <string name="delete_task">Delete Task</string>
+    <string name="edit_task">Edit Task</string>
     <string name="hello">hello</string>
     <string name="show_expired_tasks">Show Expired Tasks</string>
+    <string name="appName">Task Manager</string>
+    <string name="add_task">Add task</string>
 </resources>

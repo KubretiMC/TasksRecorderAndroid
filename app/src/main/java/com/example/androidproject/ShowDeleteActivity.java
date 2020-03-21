@@ -20,6 +20,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -30,6 +31,7 @@ public class ShowDeleteActivity extends AppCompatActivity {
     private String dateString;
     private String nameString;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,15 +81,16 @@ public class ShowDeleteActivity extends AppCompatActivity {
         });
     }
 
-    private void ShowPendingTasks(ArrayList<String> listResults, ArrayAdapter<String> arrayAdapter,ListView simpleList) {
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void ShowPendingTasks(ArrayList<String> listResults, ArrayAdapter<String> arrayAdapter, ListView simpleList) {
         res = findViewById(R.id.result);
 
         String q;
-
+        LocalDate today = LocalDate.now();
         try {
             SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase(getFilesDir().getPath() + "/" + "zadachiOpit2.db", null);
-            q = "SELECT * FROM zadachiopit2 where finishedDate is null";
-            Cursor c = db.rawQuery(q, null);
+            q = "SELECT * FROM zadachiopit2 WHERE finishedDate is null and endDate>?";
+            Cursor c = db.rawQuery(q, new String[]{String.valueOf(today)});
             while (c.moveToNext()) {
                 String taskName = c.getString(c.getColumnIndex("taskName"));
                 String endDate = c.getString(c.getColumnIndex("endDate"));

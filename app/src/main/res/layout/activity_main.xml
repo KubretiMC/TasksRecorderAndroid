@@ -9,7 +9,7 @@
 
     <Button
         android:id="@+id/ShowPending"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
         android:text="@string/show_pending_tasks"
@@ -19,7 +19,7 @@
 
     <Button
         android:id="@+id/ShowPrevious"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="@string/show_previous_tasks"
         app:layout_constraintEnd_toEndOf="parent"
@@ -28,7 +28,7 @@
 
     <Button
         android:id="@+id/ShowExpired"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="@string/show_expired_tasks"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,27 +37,27 @@
 
     <Button
         android:id="@+id/ShowAdd"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="@string/add"
+        android:text="@string/add_task"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ShowExpired" />
 
     <Button
         android:id="@+id/ShowDelete"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="@string/delete"
+        android:text="@string/delete_task"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ShowAdd" />
 
     <Button
         android:id="@+id/ShowEdit"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:text="@string/edit"
+        android:text="@string/edit_task"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ShowDelete" />
